@@ -84,7 +84,7 @@ export default function BookingPage({ params }: BookingPageProps) {
   }
 
   const handleBooking = async () => {
-    if (!selectedDate || !selectedTime || !skill || !user) return
+    if (!selectedDate || !selectedTime || !skill) return
 
     setIsBooking(true)
     try {
@@ -94,6 +94,9 @@ export default function BookingPage({ params }: BookingPageProps) {
       const endTime = addDays(startTime, 0) // Same day, add 1 hour
       const finalEndTime = addHours(endTime, 1)
 
+      // Use user ID if authenticated, otherwise let API create demo user
+      const userId = user?.id || undefined
+
       const response = await fetch('/api/bookings', {
         method: 'POST',
         headers: {
@@ -101,7 +104,7 @@ export default function BookingPage({ params }: BookingPageProps) {
         },
         body: JSON.stringify({
           skill_id: skill.id,
-          learner_id: user.id,
+          learner_id: userId,
           scheduled_at: startTime.toISOString(),
           notes,
         }),
@@ -111,15 +114,10 @@ export default function BookingPage({ params }: BookingPageProps) {
 
       if (response.ok) {
         setBookingSuccess(true)
-        // Update user credits with the actual updated credits from API
-        if (data.updatedCredits !== undefined) {
+        // Update user credits if authenticated
+        if (user && data.updatedCredits !== undefined) {
           useAuthStore.getState().updateUser({
             credits: data.updatedCredits
-          })
-        } else {
-          // Fallback to client-side calculation
-          useAuthStore.getState().updateUser({
-            credits: user.credits - skill.priceCredits
           })
         }
       } else {
@@ -296,104 +294,100 @@ export default function BookingPage({ params }: BookingPageProps) {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                {!isAuthenticated ? (
-                  <div className="text-center py-8">
-                    <p className="text-muted-foreground mb-4">
-                      Please sign in to book this session
-                    </p>
-                    <Button onClick={() => window.location.href = '/'}>
-                      Sign In
-                    </Button>
-                  </div>
-                ) : (
-                  <>
-                    {/* Calendar */}
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">
-                        Select Date
-                      </label>
-                      <Calendar
-                        mode="single"
-                        selected={selectedDate}
-                        onSelect={setSelectedDate}
-                        disabled={(date) => date < new Date() || date < new Date(new Date().setHours(0,0,0,0))}
-                        className="rounded-md border"
-                      />
-                    </div>
+                {/* Calendar */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">
+                    Select Date
+                  </label>
+                  <Calendar
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={setSelectedDate}
+                    disabled={(date) => date < new Date() || date < new Date(new Date().setHours(0,0,0,0))}
+                    className="rounded-md border"
+                  />
+                </div>
 
-                    {/* Time Selection */}
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">
-                        Select Time
-                      </label>
-                      <Select value={selectedTime} onValueChange={setSelectedTime}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a time slot" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {timeSlots.map((time) => (
-                            <SelectItem key={time} value={time}>
-                              {time}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                {/* Time Selection */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">
+                    Select Time
+                  </label>
+                  <Select value={selectedTime} onValueChange={setSelectedTime}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a time slot" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {timeSlots.map((time) => (
+                        <SelectItem key={time} value={time}>
+                          {time}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
 
-                    {/* Notes */}
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">
-                        Notes (Optional)
-                      </label>
-                      <Textarea
-                        placeholder="Let the instructor know what you'd like to focus on..."
-                        value={notes}
-                        onChange={(e) => setNotes(e.target.value)}
-                        rows={3}
-                      />
-                    </div>
+                {/* Notes */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">
+                    Notes (Optional)
+                  </label>
+                  <Textarea
+                    placeholder="Let the instructor know what you'd like to focus on..."
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    rows={3}
+                  />
+                </div>
 
-                    {/* Credit Check */}
-                    {user && (
-                      <div className="p-3 bg-muted rounded-lg">
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm">Your credits:</span>
-                          <Badge variant="secondary">{user.credits}</Badge>
-                        </div>
-                        <div className="flex items-center justify-between mt-1">
-                          <span className="text-sm">Session cost:</span>
-                          <Badge variant="outline">{skill.priceCredits}</Badge>
-                        </div>
-                        {user.credits < skill.priceCredits && (
-                          <p className="text-sm text-red-600 mt-2">
-                            Insufficient credits. Please add more credits to continue.
-                          </p>
-                        )}
-                      </div>
+                {/* Credit Check - only show if user is authenticated */}
+                {user && (
+                  <div className="p-3 bg-muted rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">Your credits:</span>
+                      <Badge variant="secondary">{user.credits}</Badge>
+                    </div>
+                    <div className="flex items-center justify-between mt-1">
+                      <span className="text-sm">Session cost:</span>
+                      <Badge variant="outline">{skill.priceCredits}</Badge>
+                    </div>
+                    {user.credits < skill.priceCredits && (
+                      <p className="text-sm text-red-600 mt-2">
+                        Insufficient credits. Please add more credits to continue.
+                      </p>
                     )}
-
-                    {/* Book Button */}
-                    <Button 
-                      className="w-full" 
-                      size="lg"
-                      onClick={handleBooking}
-                      disabled={!selectedDate || !selectedTime || !user || user.credits < skill.priceCredits || isBooking}
-                    >
-                      {isBooking ? (
-                        <>
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                          Booking...
-                        </>
-                      ) : (
-                        `Book Session - ${skill.priceCredits} credits`
-                      )}
-                    </Button>
-
-                    <p className="text-xs text-muted-foreground text-center">
-                      Free cancellation up to 24 hours before the session
-                    </p>
-                  </>
+                  </div>
                 )}
+
+                {/* Demo User Notice - show if not authenticated */}
+                {!user && (
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p className="text-sm text-blue-800">
+                      <strong>Demo Mode:</strong> A demo account will be created automatically for this booking.
+                    </p>
+                  </div>
+                )}
+
+                {/* Book Button */}
+                <Button 
+                  className="w-full" 
+                  size="lg"
+                  onClick={handleBooking}
+                  disabled={!selectedDate || !selectedTime || !skill || (user && user.credits < skill.priceCredits) || isBooking}
+                >
+                  {isBooking ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Booking...
+                    </>
+                  ) : (
+                    `Book Session - ${skill.priceCredits} credits`
+                  )}
+                </Button>
+
+                <p className="text-xs text-muted-foreground text-center">
+                  Free cancellation up to 24 hours before the session
+                </p>
               </CardContent>
             </Card>
           </div>

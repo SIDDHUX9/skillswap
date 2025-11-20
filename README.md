@@ -1,532 +1,578 @@
-# 🔄 SkillSwap - Community Skills Exchange Platform
+# 🎓 SkillSwap - Community Skill Sharing Platform
 
-<div align="center">
+A modern, feature-rich platform for community members to share, learn, and collaborate through skill exchange. Built with Next.js 15, TypeScript, and cutting-edge web technologies.
 
-![SkillSwap Logo](https://img.shields.io/badge/SkillSwap-Community%20Skills%20Exchange-blue?style=for-the-badge&logo=nextjs)
-![Version](https://img.shields.io/badge/version-1.0.0-green?style=for-the-badge)
-![License](https://img.shields.io/badge/license-MIT-purple?style=for-the-badge)
-
-**A feature-rich community platform for skill sharing, learning, and collaboration**
-
-| [📖 Documentation](./docs) | [🎯 Features](#-features) | [🛠️ Tech Stack](#️-tech-stack)
-
-</div>
-
-## 📋 Table of Contents
-
-- [🎯 Features](#-features)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🚀 Quick Start](#-quick-start)
-- [📁 Project Structure](#-project-structure)
-- [🔧 Configuration](#-configuration)
-- [📚 API Documentation](#-api-documentation)
-- [🗄️ Database Schema](#️-database-schema)
-- [🧪 Testing](#-testing)
-- [📈 Performance](#-performance)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-
-## 🎯 Features
-
-### ✅ **Core Features Implemented**
-
-| Feature | Status | Description |
-|---------|--------|-------------|
-| 🔐 **User Authentication** | ✅ Complete | JWT-based auth with email verification |
-| 📍 **Geolocation Matching** | ✅ Complete | Interactive map with radius search |
-| 📅 **Booking & Scheduling** | ✅ Complete | Calendar integration with conflict detection |
-| ⭐ **Reputation System** | ✅ Complete | Ratings, reviews, and skill endorsements |
-| 🏗️ **Community Projects** | ✅ Complete | Project creation and volunteer management |
-| 🎮 **Gamification** | ✅ Complete | Points, rewards, and achievement system |
-| ♿ **Accessibility** | ✅ Complete | WCAG 2.1 AA compliance with voice commands |
-
-### 🌟 **Highlighted Features**
-
-- **🗺️ Interactive Map**: Real-time location-based skill discovery
-- **🤝 Smart Matching**: AI-powered skill compatibility algorithm
-- **💬 Real-time Chat**: WebSocket-based communication
-- **📊 Analytics Dashboard**: Comprehensive user and platform insights
-- **🔔 Smart Notifications**: Push notifications with intelligent routing
-- **🎨 Beautiful UI**: Modern, responsive design with dark mode
-- **🚀 Performance Optimized**: 95+ Lighthouse scores across all metrics
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **Framework**: Next.js 15 with App Router
-- **Language**: TypeScript 5
-- **Styling**: Tailwind CSS + shadcn/ui
-- **State Management**: Zustand + TanStack Query
-- **Animations**: Framer Motion
-- **Maps**: Leaflet + React-Leaflet
-- **Charts**: Recharts
-- **Icons**: Lucide React
-
-### Backend
-- **API**: Next.js API Routes
-- **Database**: Prisma ORM + SQLite
-- **Authentication**: NextAuth.js v4
-- **Validation**: Zod
-- **File Upload**: Multer
-- **Email**: Nodemailer
-- **Real-time**: Socket.io
-
-### Development
-- **Package Manager**: npm
-- **Linting**: ESLint + Prettier
-- **Type Checking**: TypeScript
-- **Git Hooks**: Husky + lint-staged
-
-## 🚀 Quick Start
+## 🚀 Quick Start (Backend Setup First!)
 
 ### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-- Git
+- **Node.js 18+** - Download from [nodejs.org](https://nodejs.org/)
+- **npm or yarn** - Package manager
+- **Git** - Version control
+- **Modern web browser** - Chrome, Firefox, Safari, or Edge
 
-### Installation
-
-1. **Clone the repository**
+### Step 1: Clone & Install
 ```bash
-git clone https://github.com/yourusername/skillswap.git
+git clone https://github.com/your-username/skillswap.git
 cd skillswap
-```
-
-2. **Install dependencies**
-```bash
 npm install
 ```
 
-3. **Set up environment variables**
+### Step 2: Backend Database Setup
 ```bash
-cp .env.example .env.local
+# Generate Prisma client (REQUIRED)
+npx prisma generate
+
+# Initialize database (REQUIRED)
+npm run db:push
+
+# (Optional) Seed demo data for testing
+npm run db:seed
 ```
 
-4. **Configure environment variables**
+### Step 3: Environment Variables
+```bash
+# Create environment file
+cp .env.example .env.local
+
+# Edit with your configuration
+nano .env.local
+```
+
+**Add these required variables to `.env.local`:**
 ```env
-# Database
+# Database (REQUIRED)
 DATABASE_URL="file:./dev.db"
 
-# NextAuth
+# Authentication (REQUIRED)
+NEXTAUTH_SECRET="your-secret-key-here"
 NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-key"
 
-# Email (optional)
-EMAIL_HOST="smtp.gmail.com"
-EMAIL_PORT="587"
-EMAIL_USER="your-email@gmail.com"
-EMAIL_PASS="your-app-password"
-
-# File Upload
-UPLOAD_DIR="./uploads"
-MAX_FILE_SIZE="5242880" # 5MB
+# Application (REQUIRED)
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
-5. **Initialize database**
-```bash
-npm run db:push
-npm run db:seed # Optional: seed with sample data
-```
-
-6. **Start development server**
+### Step 4: Start Development Server
 ```bash
 npm run dev
 ```
 
-7. **Open your browser**
-Navigate to [http://localhost:3000](http://localhost:3000)
+### Step 5: Access Application
+```
+http://localhost:3000
+```
 
-## 📁 Project Structure
+---
+
+## ✅ Feature Implementation Checklist
+
+| Feature | Status | Implementation Details |
+|---------|--------|----------------------|
+| 🔐 **User Authentication & Verification** | ✅ **Complete** | Secure JWT auth, signup/login, ID verification badges |
+| 🌍 **Geo-Location Matching** | ✅ **Complete** | Interactive maps, radius search, location filters |
+| 📅 **Booking & Scheduling** | ✅ **Complete** | Calendar integration, time slots, conflict detection |
+| ⭐ **Reputation System** | ✅ **Complete** | Ratings, testimonials, skill endorsements, karma |
+| 🤝 **Community Projects** | ✅ **Complete** | Project creation, volunteer management, collaboration |
+| 💰 **Incentive Mechanism** | ✅ **Complete** | Credit system, wallet, transactions, donations |
+| ♿ **Accessibility & Inclusivity** | ✅ **Complete** | Keyboard navigation, high-contrast modes, voice commands |
+
+---
+
+## 🔐 1. User Authentication & Verification
+
+### ✅ **Fully Implemented Features:**
+
+#### **Secure Authentication System**
+- **JWT-based Authentication**: Secure token-based authentication with automatic refresh
+- **Password Security**: bcryptjs hashing for secure password storage
+- **Session Management**: Persistent login with localStorage integration
+- **User Registration**: Complete signup flow with email validation
+- **Login System**: Secure login with error handling and rate limiting
+
+#### **Identity Verification**
+- **ID Verification System**: Optional identity verification with document upload
+- **Verified Badges**: Visual indicators for verified users and instructors
+- **Profile Completion**: Multi-step profile setup with verification status
+- **Trust Indicators**: Verification status displayed throughout the platform
+
+#### **Skill Validation & Reviews**
+- **Peer Review System**: Users can review and rate skills they've learned
+- **Digital Badges**: Achievement badges for completed skills and milestones
+- **Skill Endorsements**: Users can endorse specific skills of others
+- **Quality Assurance**: Flagging system for inappropriate content
+
+**Files**: `src/app/api/auth/`, `src/components/auth/`, `src/stores/auth.ts`
+
+---
+
+## 🌍 2. Geo-Location Matching
+
+### ✅ **Fully Implemented Features:**
+
+#### **Location-Based Discovery**
+- **Interactive Maps**: Real-time map visualization using Leaflet and React-Leaflet
+- **Geocoding Integration**: Address to coordinates conversion with autocomplete
+- **Location Services**: Browser-based location detection with user permission
+- **Skill Mapping**: Visual representation of available skills on map
+
+#### **Advanced Search & Filtering**
+- **Radius Search**: Customizable search radius (1-50 miles/km)
+- **Location Filters**: Filter skills by distance, city, or region
+- **Category Filtering**: Multi-category filtering with location context
+- **Availability Filters**: Search for skills available in specific timeframes
+
+#### **Smart Matching**
+- **Proximity Algorithm**: Intelligent matching based on location and preferences
+- **Distance Calculation**: Accurate distance calculations between users
+- **Location-Based Recommendations**: Personalized skill suggestions based on location
+
+**Files**: `src/app/api/geocoding/`, `src/components/location/`, `src/components/interactive-map.tsx`
+
+---
+
+## 📅 3. Booking & Scheduling
+
+### ✅ **Fully Implemented Features:**
+
+#### **Smart Calendar System**
+- **Built-in Calendar**: Interactive calendar with date/time selection
+- **Time Slot Management**: Configurable available time slots (9 AM - 8 PM)
+- **Recurring Sessions**: Support for recurring bookings and sessions
+- **Calendar Integration**: Sync with external calendars (Google Calendar, Outlook)
+
+#### **Automated Scheduling**
+- **Conflict Detection**: Prevents double-booking and scheduling conflicts
+- **Availability Management**: Instructor availability tracking and management
+- **Time Zone Support**: Automatic time zone detection and conversion
+- **Buffer Times**: Configurable buffer times between sessions
+
+#### **Booking Management**
+- **Instant Booking**: Real-time booking confirmation with details
+- **Booking History**: Complete booking history for users and instructors
+- **Cancellation System**: Flexible cancellation with refund policies
+- **Rescheduling**: Easy rescheduling with automatic notifications
+
+#### **Reminders & Notifications**
+- **Automated Reminders**: Email and in-app reminders for upcoming sessions
+- **Session Notifications**: Real-time notifications for booking changes
+- **Follow-up Messages**: Automated follow-up after session completion
+
+**Files**: `src/app/api/bookings/`, `src/app/bookings/[id]/page.tsx`, `src/components/ui/calendar.tsx`
+
+---
+
+## ⭐ 4. Reputation System
+
+### ✅ **Fully Implemented Features:**
+
+#### **Rating & Review System**
+- **5-Star Rating**: Comprehensive rating system for skills and users
+- **Written Reviews**: Detailed review system with text feedback
+- **Review Moderation**: Automated and manual review moderation
+- **Rating Analytics**: Detailed rating statistics and trends
+
+#### **Testimonials & Endorsements**
+- **Testimonial System**: Written testimonials for successful skill exchanges
+- **Skill Endorsements**: Peer endorsements for specific skills and expertise
+- **Endorsement Badges**: Visual badges for endorsed skills
+- **Testimonial Display**: Featured testimonials on user profiles
+
+#### **Reputation Levels**
+- **Progressive Tiers**: Reputation levels from Beginner to Master
+- **Karma System**: Karma points earned through positive interactions
+- **Trust Score**: Algorithmic trust score based on various factors
+- **Reputation Badges**: Visual indicators of reputation level
+
+#### **Quality Assurance**
+- **Flagging System**: Users can flag inappropriate content or behavior
+- **Dispute Resolution**: Built-in dispute resolution system
+- **Quality Metrics**: Quality scores based on completion rates and reviews
+
+**Files**: `src/app/api/reviews/`, `src/components/reviews/`, `src/components/reputation/`
+
+---
+
+## 🤝 5. Community Projects
+
+### ✅ **Fully Implemented Features:**
+
+#### **Project Creation & Management**
+- **Project Proposals**: Users can propose community projects and initiatives
+- **Project Categories**: Various project types (community garden, coding, workshops)
+- **Project Templates**: Pre-defined templates for common project types
+- **Project Lifecycle**: Complete project lifecycle from proposal to completion
+
+#### **Volunteer System**
+- **Volunteer Recruitment**: Join and manage project volunteers
+- **Role Assignment**: Different roles and permissions within projects
+- **Volunteer Tracking**: Track volunteer hours and contributions
+- **Volunteer Recognition**: Recognition system for active volunteers
+
+#### **Collaboration Tools**
+- **Project Chat**: Dedicated chat rooms for project collaboration
+- **Task Management**: Built-in task assignment and tracking
+- **File Sharing**: Share documents and resources within projects
+- **Progress Tracking**: Monitor project milestones and completion status
+
+#### **Community Impact**
+- **Impact Metrics**: Track community contribution statistics
+- **Success Stories**: Showcase successful community projects
+- **Community Reports**: Generate reports on community impact
+- **Project Gallery**: Visual gallery of completed projects
+
+**Files**: `src/app/api/projects/`, `src/app/community/page.tsx`
+
+---
+
+## 💰 6. Incentive Mechanism
+
+### ✅ **Fully Implemented Features:**
+
+#### **Credit System**
+- **Token Economy**: Complete credit-based economy for skill exchange
+- **Credit Earning**: Multiple ways to earn credits (teaching, helping, projects)
+- **Credit Spending**: Use credits to book sessions and services
+- **Credit Conversion**: Flexible credit conversion rates for different services
+
+#### **Wallet Management**
+- **Digital Wallet**: Complete wallet system with transaction history
+- **Balance Tracking**: Real-time balance updates and notifications
+- **Transaction History**: Detailed transaction logging and categorization
+- **Financial Reports**: Generate spending and earning reports
+
+#### **Donation System**
+- **Community Donations**: Donate credits to community causes and projects
+- **Charity Integration**: Integration with local charities and non-profits
+- **Donation Tracking**: Track donation impact and community benefits
+- **Tax Benefits**: Generate donation receipts for tax purposes
+
+#### **Incentive Programs**
+- **Referral System**: Earn credits by referring new users
+- **Bonus Credits**: Bonus credits for active participation
+- **Seasonal Promotions**: Special credit promotions and events
+- **Loyalty Rewards**: Rewards for long-term active users
+
+**Files**: `src/app/api/credits/`, `src/components/wallet/`, `src/app/api/bookings/route.ts`
+
+---
+
+## ♿ 7. Accessibility & Inclusivity
+
+### ✅ **Fully Implemented Features:**
+
+#### **Keyboard Navigation**
+- **Full Keyboard Support**: Complete keyboard navigation throughout the platform
+- **Keyboard Shortcuts**: Customizable keyboard shortcuts for power users
+- **Focus Management**: Proper focus management for screen readers
+- **Skip Links**: Skip links for easy navigation to main content
+
+#### **Visual Accessibility**
+- **High Contrast Modes**: Multiple high contrast themes for better visibility
+- **Text Scaling**: Adjustable text sizes without breaking layout
+- **Color Blind Support**: Color-blind friendly design and color schemes
+- **Dark/Light Mode**: Complete dark and light theme support
+
+#### **Voice Navigation & Screen Readers**
+- **Voice Commands**: Voice navigation support for hands-free operation
+- **Screen Reader Support**: Full support for popular screen readers
+- **ARIA Labels**: Comprehensive ARIA labels and descriptions
+- **Alt Text**: Descriptive alt text for all images and graphics
+
+#### **Language & Localization**
+- **Multi-language Support**: Support for multiple languages
+- **Language Detection**: Automatic language detection and switching
+- **RTL Support**: Right-to-left language support
+- **Cultural Adaptation**: Culturally appropriate design and content
+
+#### **Inclusive Design**
+- **Cognitive Accessibility**: Simple, clear interface for users with cognitive disabilities
+- **Motor Accessibility**: Large click targets and simple interactions
+- **Seizure Safety**: No flashing or strobing content
+- **Accessibility Testing**: Regular accessibility audits and improvements
+
+**Files**: `src/components/accessibility/`, `src/app/globals.css`, `src/components/ui/` (all components include accessibility features)
+
+---
+
+## 🗄️ Backend & Database Setup
+
+### Database Schema Overview
+
+#### **Core Models**
+
+**User Model**
+```typescript
+- id: string (Primary Key)
+- email: string (Unique)
+- password: string (Hashed)
+- name: string (Optional)
+- avatar: string (Profile picture)
+- credits: number (Credit balance)
+- karma: number (Reputation points)
+- isIdVerified: boolean (Verification status)
+- location: string (User location)
+- lat/lng: float (Coordinates)
+- bio: string (User biography)
+- createdAt/updatedAt: DateTime
+```
+
+**Skill Model**
+```typescript
+- id: string (Primary Key)
+- ownerId: string (Foreign Key to User)
+- title: string (Skill name)
+- description: string (Skill description)
+- category: SkillCategory (Skill type)
+- priceCredits: number (Cost in credits)
+- lat/lng: float (Location coordinates)
+- avgRating: float (Average rating)
+- isActive: boolean (Availability status)
+- createdAt/updatedAt: DateTime
+```
+
+**Booking Model**
+```typescript
+- id: string (Primary Key)
+- skillId: string (Foreign Key to Skill)
+- learnerId: string (Foreign Key to User)
+- startTime/endTime: DateTime (Session times)
+- status: BookingStatus (Booking state)
+- createdAt/updatedAt: DateTime
+```
+
+**Review Model**
+```typescript
+- id: string (Primary Key)
+- skillId: string (Foreign Key to Skill)
+- reviewerId: string (Foreign Key to User)
+- bookingId: string (Foreign Key to Booking)
+- stars: number (Rating 1-5)
+- comment: string (Review text)
+- isFlagged: boolean (Content moderation)
+- createdAt: DateTime
+```
+
+**CommunityProject Model**
+```typescript
+- id: string (Primary Key)
+- creatorId: string (Foreign Key to User)
+- title: string (Project name)
+- description: string (Project details)
+- maxVolunteers: number (Volunteer limit)
+- currentVolunteers: number (Current count)
+- isActive: boolean (Project status)
+- createdAt/updatedAt: DateTime
+```
+
+**CreditTxn Model**
+```typescript
+- id: string (Primary Key)
+- userId: string (Foreign Key to User)
+- amount: number (Credit amount)
+- type: CreditType (EARNED/SPENT/DONATED)
+- refId: string (Reference ID)
+- message: string (Transaction description)
+- createdAt: DateTime
+```
+
+### API Endpoints
+
+#### **Authentication**
+- `POST /api/auth/signup` - User registration
+- `POST /api/auth/signin` - User login
+- `GET /api/auth/me` - Get current user
+
+#### **Skills**
+- `GET /api/skills` - Get all skills with filtering
+- `GET /api/skills/[id]` - Get specific skill
+- `POST /api/skills` - Create new skill
+- `PUT /api/skills/[id]` - Update skill
+- `DELETE /api/skills/[id]` - Delete skill
+- `GET /api/skills/nearby` - Get nearby skills
+
+#### **Bookings**
+- `GET /api/bookings` - Get user bookings
+- `POST /api/bookings` - Create booking
+- `PUT /api/bookings` - Update booking status
+
+#### **Reviews**
+- `GET /api/reviews` - Get reviews
+- `POST /api/reviews` - Create review
+- `PUT /api/reviews/[id]` - Update review
+
+#### **Community Projects**
+- `GET /api/projects` - Get projects
+- `POST /api/projects` - Create project
+- `GET /api/projects/[id]` - Get specific project
+- `PUT /api/projects/[id]` - Update project
+
+#### **Credits**
+- `GET /api/credits` - Get user credits
+- `POST /api/credits` - Add credits
+- `GET /api/credits/transactions` - Get transaction history
+
+#### **Chat**
+- `GET /api/chat/rooms` - Get chat rooms
+- `POST /api/chat/rooms` - Create chat room
+- `GET /api/chat/rooms/[id]/messages` - Get messages
+- `POST /api/chat/rooms/[id]/messages` - Send message
+
+#### **Location**
+- `GET /api/geocoding/search` - Geocoding search
+
+---
+
+## 📋 Available Scripts
+
+```bash
+# Development
+npm run dev              # Start development server
+npm run build            # Build for production
+npm run start            # Start production server
+npm run lint             # Run ESLint
+
+# Database Operations
+npm run db:push          # Push schema to database
+npm run db:generate      # Generate Prisma client
+npm run db:migrate       # Run database migrations
+npm run db:reset         # Reset database
+npm run db:seed          # Seed demo data
+
+# Utilities
+npm run type-check       # TypeScript type checking
+npm run format           # Format code with Prettier
+```
+
+---
+
+## 🏗️ Project Structure
 
 ```
 skillswap/
 ├── src/
 │   ├── app/                    # Next.js App Router
-│   │   ├── (auth)/            # Authentication routes
-│   │   ├── dashboard/         # Dashboard pages
-│   │   ├── skills/            # Skill-related pages
-│   │   ├── map/               # Interactive map
-│   │   ├── bookings/          # Booking management
+│   │   ├── api/               # API routes (Backend)
+│   │   │   ├── auth/          # Authentication endpoints
+│   │   │   ├── bookings/      # Booking management
+│   │   │   ├── skills/        # Skill CRUD operations
+│   │   │   ├── projects/      # Community projects
+│   │   │   ├── chat/          # Real-time chat
+│   │   │   ├── reviews/       # Rating system
+│   │   │   ├── credits/       # Credit system
+│   │   │   └── geocoding/     # Location services
+│   │   ├── bookings/          # Booking pages
+│   │   ├── skills/            # Skill pages
 │   │   ├── community/         # Community projects
-│   │   ├── profile/           # User profiles
-│   │   └── api/               # API routes
+│   │   ├── dashboard/         # User dashboard
+│   │   ├── profile/           # User profile
+│   │   └── layout.tsx         # Root layout
 │   ├── components/            # React components
 │   │   ├── ui/               # shadcn/ui components
-│   │   ├── forms/            # Form components
-│   │   ├── maps/             # Map components
-│   │   ├── charts/           # Data visualization
-│   │   └── layout/           # Layout components
+│   │   ├── auth/             # Authentication components
+│   │   ├── chat/             # Chat components
+│   │   ├── location/         # Location-based features
+│   │   ├── reputation/       # Reputation system
+│   │   ├── wallet/           # Credit system
+│   │   ├── reviews/          # Review components
+│   │   ├── accessibility/    # Accessibility features
+│   │   └── 3d/               # 3D animations
 │   ├── lib/                  # Utility libraries
-│   │   ├── auth.ts           # Authentication logic
-│   │   ├── db.ts             # Database connection
-│   │   ├── utils.ts          # Helper functions
-│   │   └── validations.ts    # Form validations
-│   ├── hooks/                # Custom React hooks
-│   ├── types/                # TypeScript definitions
-│   └── styles/               # Global styles
-├── prisma/                   # Prisma configuration
+│   │   ├── db.ts            # Database client
+│   │   ├── utils.ts         # Helper functions
+│   │   ├── prisma.ts        # Prisma configuration
+│   │   └── socket.ts        # WebSocket configuration
+│   ├── stores/              # State management
+│   │   └── auth.ts          # Authentication store
+│   └── styles/              # Global styles
+├── prisma/
 │   ├── schema.prisma        # Database schema
-│   └── migrations/          # Database migrations
-├── public/                   # Static assets
-├── docs/                     # Documentation
-└── tests/                    # Test files
+│   └── seed.ts             # Database seeding
+├── public/                 # Static assets
+├── docs/                   # Documentation
+└── README.md              # This file
 ```
 
-## 🔧 Configuration
+---
 
-### Database Setup
+## 🔧 Technology Stack
 
-1. **Install Prisma CLI**
+### Frontend Technologies
+- **Next.js 15** - React framework with App Router
+- **TypeScript 5** - Type-safe development
+- **Tailwind CSS 4** - Utility-first styling
+- **shadcn/ui** - Modern component library
+- **Framer Motion** - Animation library
+- **Three.js** - 3D graphics and animations
+- **React Hook Form** - Form management
+- **Zustand** - State management
+- **React Leaflet** - Interactive maps
+- **React Query** - Server state management
+
+### Backend Technologies
+- **Next.js API Routes** - Serverless API endpoints
+- **Prisma ORM** - Database management
+- **SQLite** - Database (development & production)
+- **bcryptjs** - Password hashing
+- **Socket.io** - Real-time communication
+- **Zod** - Schema validation
+- **JWT** - Authentication tokens
+
+### Development Tools
+- **ESLint** - Code linting
+- **TypeScript** - Static typing
+- **Prisma Studio** - Database GUI
+- **Nodemon** - Development auto-restart
+- **Prettier** - Code formatting
+
+---
+
+## 🚀 Deployment Options
+
+### Development Deployment
 ```bash
-npm install -g prisma
+# Local development
+npm run dev
+
+# Production build
+npm run build
+npm run start
 ```
 
-2. **Generate Prisma Client**
+### Production Deployment (Alternatives to Vercel)
+
+#### **Docker Deployment**
 ```bash
-npx prisma generate
+# Build Docker image
+docker build -t skillswap .
+
+# Run container
+docker run -p 3000:3000 skillswap
 ```
 
-3. **Run Migrations**
+#### **Traditional VPS Deployment**
 ```bash
-npx prisma migrate dev
+# Build application
+npm run build
+
+# Start with PM2
+pm2 start npm --name "skillswap" -- start
 ```
 
-4. **Seed Database (Optional)**
-```bash
-npm run db:seed
-```
+#### **Cloud Platform Deployment**
+- **AWS EC2**: Deploy on Amazon Web Services
+- **DigitalOcean**: Deploy on DigitalOcean droplets
+- **Heroku**: Deploy on Heroku platform
+- **Railway**: Modern deployment platform
 
-### Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `DATABASE_URL` | Database connection string | ✅ |
-| `NEXTAUTH_URL` | NextAuth.js URL | ✅ |
-| `NEXTAUTH_SECRET` | NextAuth.js secret | ✅ |
-| `EMAIL_HOST` | SMTP server host | ❌ |
-| `EMAIL_PORT` | SMTP server port | ❌ |
-| `EMAIL_USER` | SMTP username | ❌ |
-| `EMAIL_PASS` | SMTP password | ❌ |
-
-## 📚 API Documentation
-
-### Authentication Endpoints
-
-```http
-POST /api/auth/register
-POST /api/auth/login
-POST /api/auth/verify
-GET  /api/auth/me
-```
-
-### User Endpoints
-
-```http
-GET    /api/users
-GET    /api/users/[id]
-PUT    /api/users/[id]
-DELETE /api/users/[id]
-```
-
-### Skills Endpoints
-
-```http
-GET    /api/skills
-POST   /api/skills
-GET    /api/skills/[id]
-PUT    /api/skills/[id]
-DELETE /api/skills/[id]
-GET    /api/skills/search
-```
-
-### Bookings Endpoints
-
-```http
-GET    /api/bookings
-POST   /api/bookings
-GET    /api/bookings/[id]
-PUT    /api/bookings/[id]
-DELETE /api/bookings/[id]
-```
-
-### Community Projects Endpoints
-
-```http
-GET    /api/community/projects
-POST   /api/community/projects
-GET    /api/community/projects/[id]
-PUT    /api/community/projects/[id]
-POST   /api/community/projects/[id]/volunteer
-```
-
-### API Response Format
-
-```json
-{
-  "success": true,
-  "data": {
-    // Response data
-  },
-  "message": "Operation successful",
-  "pagination": {
-    "page": 1,
-    "limit": 10,
-    "total": 100,
-    "totalPages": 10
-  }
-}
-```
-
-## 🗄️ Database Schema
-
-### Core Models
-
-```sql
--- Users
-CREATE TABLE users (
-  id TEXT PRIMARY KEY,
-  email TEXT UNIQUE NOT NULL,
-  username TEXT UNIQUE NOT NULL,
-  firstName TEXT NOT NULL,
-  lastName TEXT NOT NULL,
-  bio TEXT,
-  avatar TEXT,
-  latitude REAL,
-  longitude REAL,
-  location TEXT,
-  isVerified BOOLEAN DEFAULT FALSE,
-  emailVerified BOOLEAN DEFAULT FALSE,
-  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
--- Skills
-CREATE TABLE skills (
-  id TEXT PRIMARY KEY,
-  userId TEXT NOT NULL,
-  title TEXT NOT NULL,
-  description TEXT NOT NULL,
-  category TEXT NOT NULL,
-  level TEXT NOT NULL,
-  isOffered BOOLEAN NOT NULL,
-  hourlyRate REAL,
-  availability TEXT,
-  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (userId) REFERENCES users(id)
-);
-
--- Bookings
-CREATE TABLE bookings (
-  id TEXT PRIMARY KEY,
-  bookerId TEXT NOT NULL,
-  skillProviderId TEXT NOT NULL,
-  skillId TEXT NOT NULL,
-  startTime DATETIME NOT NULL,
-  endTime DATETIME NOT NULL,
-  status TEXT NOT NULL,
-  totalAmount REAL,
-  notes TEXT,
-  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (bookerId) REFERENCES users(id),
-  FOREIGN KEY (skillProviderId) REFERENCES users(id),
-  FOREIGN KEY (skillId) REFERENCES skills(id)
-);
-
--- Reviews
-CREATE TABLE reviews (
-  id TEXT PRIMARY KEY,
-  reviewerId TEXT NOT NULL,
-  revieweeId TEXT NOT NULL,
-  bookingId TEXT UNIQUE NOT NULL,
-  rating INTEGER NOT NULL,
-  comment TEXT,
-  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (reviewerId) REFERENCES users(id),
-  FOREIGN KEY (revieweeId) REFERENCES users(id),
-  FOREIGN KEY (bookingId) REFERENCES bookings(id)
-);
-
--- Community Projects
-CREATE TABLE community_projects (
-  id TEXT PRIMARY KEY,
-  creatorId TEXT NOT NULL,
-  title TEXT NOT NULL,
-  description TEXT NOT NULL,
-  category TEXT NOT NULL,
-  status TEXT NOT NULL,
-  startDate DATETIME NOT NULL,
-  endDate DATETIME NOT NULL,
-  maxVolunteers INTEGER,
-  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (creatorId) REFERENCES users(id)
-);
-
--- Point Transactions
-CREATE TABLE point_transactions (
-  id TEXT PRIMARY KEY,
-  userId TEXT NOT NULL,
-  amount INTEGER NOT NULL,
-  type TEXT NOT NULL,
-  description TEXT NOT NULL,
-  relatedEntityId TEXT,
-  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (userId) REFERENCES users(id)
-);
-```
-
-### Relationships
-
-- **Users** can have multiple **Skills**
-- **Users** can create and receive **Bookings**
-- **Users** can give and receive **Reviews**
-- **Users** can create **Community Projects**
-- **Users** can volunteer for **Community Projects**
-- **Users** can earn **Points** through various activities
-
-## 🧪 Testing
-
-### Running Tests
-
-```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run E2E tests
-npm run test:e2e
-```
-
-### Test Structure
-
-```
-tests/
-├── unit/                   # Unit tests
-│   ├── components/        # Component tests
-│   ├── hooks/            # Hook tests
-│   └── utils/            # Utility tests
-├── integration/           # Integration tests
-│   ├── api/              # API tests
-│   └── database/         # Database tests
-└── e2e/                  # End-to-end tests
-    ├── auth/             # Authentication flows
-    ├── skills/           # Skill management
-    └── bookings/         # Booking flows
-```
-
-## 📈 Performance
-
-### Optimization Features
-
-- **Code Splitting**: Automatic route-based code splitting
-- **Image Optimization**: Next.js Image component with lazy loading
-- **Caching**: Strategic caching for API responses
-- **Database Optimization**: Indexed queries and connection pooling
-- **Bundle Analysis**: Regular bundle size monitoring
-
-### Performance Metrics
-
-| Metric | Score | Target |
-|--------|-------|--------|
-| Performance | 95+ | 90+ |
-| Accessibility | 100 | 95+ |
-| Best Practices | 100 | 95+ |
-| SEO | 100 | 95+ |
-
-### Monitoring
-
-```bash
-# Analyze bundle size
-npm run analyze
-
-# Check performance
-npm run lighthouse
-
-# Monitor API performance
-npm run monitor
-```
-
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-### Development Workflow
-
-1. **Fork the repository**
-2. **Create a feature branch**
-```bash
-git checkout -b feature/amazing-feature
-```
-
-3. **Make your changes**
-4. **Run tests**
-```bash
-npm run test
-npm run lint
-npm run type-check
-```
-
-5. **Commit your changes**
-```bash
-git commit -m "feat: add amazing feature"
-```
-
-6. **Push to your branch**
-```bash
-git push origin feature/amazing-feature
-```
-
-7. **Open a Pull Request**
-
-### Code Style
-
-- Use TypeScript for all new code
-- Follow ESLint and Prettier configurations
-- Write meaningful commit messages
-- Add tests for new features
-- Update documentation as needed
-
-### Commit Message Format
-
-```
-type(scope): description
-
-feat(auth): add email verification
-fix(booking): resolve timezone issue
-docs(readme): update installation guide
-```
+---
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+---
 
-- [Next.js](https://nextjs.org/) - The React framework
-- [Prisma](https://www.prisma.io/) - Modern database toolkit
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [shadcn/ui](https://ui.shadcn.com/) - Beautiful UI components
-- [Lucide](https://lucide.dev/) - Beautiful icons
-
-## 📞 Contact
-
-- **Project Maintainer**: [siddhu singh](mailto:siddhu3116@gmail.com)
-- **Project Link**: [https://github.com/SIDDHUX9/skillswap](https://github.com/yourusername/skillswap)
-- **Issues**: [GitHub Issues](https://github.com/SIDDHUX9/skillswap/issues)
+**🎉 Thank you for checking out SkillSwap! Together, we're building a more connected and skilled community.**
 
 ---
 
-<div align="center">
-
-**⭐ Star this repository if it helped you!**
-
-Made with ❤️ by the SkillSwap Team
-
-</div>
+*Last updated: December 2024*
