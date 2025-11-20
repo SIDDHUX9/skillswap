@@ -4,15 +4,12 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "env": {
-    "DATABASE_URL": "@database-url",
-    "NEXTAUTH_SECRET": "@nextauth-secret",
-    "NEXTAUTH_URL": "@nextauth-url",
-    "NEXT_PUBLIC_APP_URL": "@app-url"
-  },
-  "functions": {
-    "src/app/api/**/*.ts": {
-      "runtime": "nodejs18.x"
-    }
+    "DATABASE_URL": "file:./dev.db",
+    "NEXTAUTH_SECRET": "placeholder-nextauth-secret",
+    "NEXTAUTH_URL": "https://example.com",
+    "NEXT_PUBLIC_APP_URL": "https://example.com",
+    "SUPABASE_URL": "https://example.supabase.co",
+    "SUPABASE_ANON_KEY": "placeholder-anon-key"
   },
   "headers": [
     {
